@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Tesla Service - Tesla Cool Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Subtle repeating pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Logo/Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .header h1 span {
+            color: #00d4ff;
+        }
+        
+        .header .subtitle {
+            font-size: 1em;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+        
+        /* Repetitive "gravity" text */
+        .gravity-text {
+            text-align: center;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .gravity-line {
+            display: block;
+            font-size: 0.7em;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            opacity: 0.15;
+            line-height: 1.4;
+            animation: fadePulse 3s ease-in-out infinite;
+        }
+        
+        .gravity-line:nth-child(1) { font-size: 0.9em; opacity: 0.25; }
+        .gravity-line:nth-child(2) { font-size: 0.8em; opacity: 0.2; }
+        .gravity-line:nth-child(3) { font-size: 0.7em; opacity: 0.15; }
+        .gravity-line:nth-child(4) { font-size: 0.6em; opacity: 0.1; }
+        .gravity-line:nth-child(5) { font-size: 0.5em; opacity: 0.08; }
+        
+        @keyframes fadePulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.25; }
+        }
+        
+        /* Form Card */
+        .form-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-title {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            color: #00d4ff;
+        }
+        
+        .form-subtitle {
+            font-size: 0.95em;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #00d4ff;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-group select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8em;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95em;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            accent-color: #00d4ff;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #0a0a1a;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+        
+        .guarantee-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85em;
+            opacity: 0.6;
+        }
+        
+        .phone-fallback {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .phone-fallback p {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+        
+        .phone-fallback a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .phone-fallback a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.75em;
+            opacity: 0.4;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-card {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Tesla <span>Cool</span> Pro</h1>
+            <p class="subtitle">Premium Radiator &amp; Cooling System Cleaning</p>
+        </div>
+        
+        <!-- Repetitive "gravity" text - pulls eye downward -->
+        <div class="gravity-text">
+            <span class="gravity-line">Restore AC Performance</span>
+            <span class="gravity-line">Protect Your Battery</span>
+            <span class="gravity-line">Extend Your Range</span>
+            <span class="gravity-line">Book Your Service</span>
+            <span class="gravity-line">Book Your Service</span>
+        </div>
+        
+        <!-- Form -->
+        <div class="form-card">
+            <h2 class="form-title">Book Your Service</h2>
+            <p class="form-subtitle">Fill out the form below and we'll confirm your appointment within 15 minutes</p>
+            
+            <form action="https://formspree.io/f/mzdwnrwk" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="435-695-6996">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="model">Tesla Model *</label>
+                        <select id="model" name="model" required>
+                            <option value="">Select Model</option>
+                            <option value="model-3">Model 3</option>
+                            <option value="model-y">Model Y</option>
+                            <option value="model-s">Model S</option>
+                            <option value="model-x">Model X</option>
+                            <option value="cybertruck">Cybertruck</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="year">Year *</label>
+                        <select id="year" name="year" required>
+                            <option value="">Select Year</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mileage">Current Mileage (approximate)</label>
+                    <input type="number" id="mileage" name="mileage" placeholder="45,000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="service-tier">Service Tier *</label>
+                    <select id="service-tier" name="service-tier" required>
+                        <option value="">Select Your Plan</option>
+                        <option value="essential">Essential - $150 (One-time)</option>
+                        <option value="standard">Standard - $275 (2x/year)</option>
+                        <option value="professional">Professional - $375 (3x/year)</option>
+                        <option value="vip">VIP - $450 (4x/year)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Current Symptoms (check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="weak-ac"> Weak AC / Not cooling
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="range-loss"> Range loss / Reduced efficiency
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="overheating"> Overheating warnings
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="battery-warnings"> Battery cooling warnings
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="no-issues"> No issues - preventive maintenance
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Preferred Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="time">Preferred Time *</label>
+                        <select id="time" name="time" required>
+                            <option value="">Select Time</option>
+                            <option value="morning">Morning (8am - 12pm)</option>
+                            <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                            <option value="evening">Evening (5pm - 8pm)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Service Location (Address) *</label>
+                    <input type="text" id="location" name="location" required placeholder="123 Main St, Provo, UT 84601">
+                    <small>Mobile service - we come to you!</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Any specific concerns or access instructions..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Book My Appointment</button>
+                <p class="guarantee-text">⚡ We'll confirm within 15 minutes • 100% Money-Back Guarantee</p>
+            </form>
+        </div>
+        
+        <!-- Phone fallback -->
+        <div class="phone-fallback">
+            <p>Prefer to call?</p>
+            <a href="tel:4356956996">435.695.6996</a>
+            <p style="margin-top: 10px; font-size: 0.8em;">Or text "COOL" for $20 off</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Not affiliated with Tesla Inc. | Serving Utah County &amp; surrounding areas</p>
+            <p>&copy; 2024 Tesla Cool Pro</p>
+        </div>
+    </div>
+</body>
+</html>

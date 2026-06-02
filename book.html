@@ -1,0 +1,1739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Tesla Service - Tesla Cool Pro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a1a 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Subtle repeating pattern background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(0, 212, 255, 0.03) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .container {
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Logo/Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .header h1 span {
+            color: #00d4ff;
+        }
+        
+        .header .subtitle {
+            font-size: 1em;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+        
+        /* Repetitive "gravity" text */
+        .gravity-text {
+            text-align: center;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .gravity-line {
+            display: block;
+            font-size: 0.7em;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            opacity: 0.15;
+            line-height: 1.4;
+            animation: fadePulse 3s ease-in-out infinite;
+        }
+        
+        .gravity-line:nth-child(1) { font-size: 0.9em; opacity: 0.25; }
+        .gravity-line:nth-child(2) { font-size: 0.8em; opacity: 0.2; }
+        .gravity-line:nth-child(3) { font-size: 0.7em; opacity: 0.15; }
+        .gravity-line:nth-child(4) { font-size: 0.6em; opacity: 0.1; }
+        .gravity-line:nth-child(5) { font-size: 0.5em; opacity: 0.08; }
+        
+        @keyframes fadePulse {
+            0%, 100% { opacity: 0.1; }
+            50% { opacity: 0.25; }
+        }
+        
+        /* Form Card */
+        .form-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(0, 212, 255, 0.15);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-title {
+            font-size: 1.5em;
+            margin-bottom: 5px;
+            color: #00d4ff;
+        }
+        
+        .form-subtitle {
+            font-size: 0.95em;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.9em;
+            color: #00d4ff;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid rgba(0, 212, 255, 0.2);
+            border-radius: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .form-group select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 6px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8em;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: normal;
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95em;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            accent-color: #00d4ff;
+        }
+        
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #0a0a1a;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.4);
+        }
+        
+        .guarantee-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85em;
+            opacity: 0.6;
+        }
+        
+        .phone-fallback {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .phone-fallback p {
+            font-size: 0.9em;
+            opacity: 0.7;
+            margin-bottom: 8px;
+        }
+        
+        .phone-fallback a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .phone-fallback a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.75em;
+            opacity: 0.4;
+        }
+        
+        @media (max-width: 600px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-card {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>Tesla <span>Cool</span> Pro</h1>
+            <p class="subtitle">Premium Radiator &amp; Cooling System Cleaning</p>
+        </div>
+        
+        <!-- Repetitive "gravity" text - pulls eye downward -->
+        <div class="gravity-text">
+            <span class="gravity-line">Restore AC Performance</span>
+            <span class="gravity-line">Protect Your Battery</span>
+            <span class="gravity-line">Extend Your Range</span>
+            <span class="gravity-line">Book Your Service</span>
+            <span class="gravity-line">Book Your Service</span>
+        </div>
+        
+        <!-- Form -->
+        <div class="form-card">
+            <h2 class="form-title">Book Your Service</h2>
+            <p class="form-subtitle">Fill out the form below and we'll confirm your appointment within 15 minutes</p>
+            
+            <form action="https://formspree.io/f/mzdwnrwk" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required placeholder="435-695-6996">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="model">Tesla Model *</label>
+                        <select id="model" name="model" required>
+                            <option value="">Select Model</option>
+                            <option value="model-3">Model 3</option>
+                            <option value="model-y">Model Y</option>
+                            <option value="model-s">Model S</option>
+                            <option value="model-x">Model X</option>
+                            <option value="cybertruck">Cybertruck</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="year">Year *</label>
+                        <select id="year" name="year" required>
+                            <option value="">Select Year</option>
+                            <option value="2026">2026</option>
+                            <option value="2025">2025</option>
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                            <option value="2022">2022</option>
+                            <option value="2021">2021</option>
+                            <option value="2020">2020</option>
+                            <option value="2019">2019</option>
+                            <option value="2018">2018</option>
+                            <option value="2017">2017</option>
+                            <option value="2016">2016</option>
+                            <option value="2015">2015</option>
+                            <option value="2014">2014</option>
+                            <option value="2013">2013</option>
+                            <option value="2012">2012</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="mileage">Current Mileage (approximate)</label>
+                    <input type="number" id="mileage" name="mileage" placeholder="45,000">
+                </div>
+                
+                <div class="form-group">
+                    <label for="service-tier">Service Tier *</label>
+                    <select id="service-tier" name="service-tier" required>
+                        <option value="">Select Your Plan</option>
+                        <option value="essential">Essential - $150 (One-time)</option>
+                        <option value="standard">Standard - $275 (2x/year)</option>
+                        <option value="professional">Professional - $375 (3x/year)</option>
+                        <option value="vip">VIP - $450 (4x/year)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Current Symptoms (check all that apply)</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="weak-ac"> Weak AC / Not cooling
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="range-loss"> Range loss / Reduced efficiency
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="overheating"> Overheating warnings
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="battery-warnings"> Battery cooling warnings
+                        </label>
+                        <label class="checkbox-label">
+                            <input type="checkbox" name="symptoms" value="no-issues"> No issues - preventive maintenance
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Preferred Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Preferred Time *</label>
+                        <select id="time" name="time" required>
+                            <option value="">Select Time</option>
+                            <option value="morning">Morning (8am - 12pm)</option>
+                            <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                            <option value="evening">Evening (5pm - 8pm)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Service Location (Address) *</label>
+                    <input type="text" id="location" name="location" required placeholder="123 Main St, Provo, UT 84601">
+                    <small>Mobile service - we come to you!</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="notes">Additional Notes</label>
+                    <textarea id="notes" name="notes" rows="3" placeholder="Any specific concerns or access instructions..."></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Book My Appointment</button>
+                <p class="guarantee-text">⚡ We'll confirm within 15 minutes • 100% Money-Back Guarantee</p>
+            </form>
+        </div>
+        
+        <!-- Phone fallback -->
+        <div class="phone-fallback">
+            <p>Prefer to call?</p>
+            <a href="tel:4356956996">435.695.6996</a>
+            <p style="margin-top: 10px; font-size: 0.8em;">Or text "COOL" for $20 off</p>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            <p>Not affiliated with Tesla Inc. | Serving Utah County &amp; surrounding areas</p>
+            <p>&copy; 2024 Tesla Cool Pro</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesla Cool Pro - Premium Tesla Radiator Cleaning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        .hero h1 span {
+            color: #00d4ff;
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3em;
+            margin-bottom: 15px;
+            opacity: 0.9;
+        }
+        
+        .hero .tagline {
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            opacity: 0.8;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #00d4ff;
+            color: #1a1a2e;
+            padding: 18px 50px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+        
+        /* Trust Badges */
+        .trust-badges {
+            background: #f8f9fa;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        .badge-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .badge {
+            padding: 20px;
+        }
+        
+        .badge-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .badge-label {
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Problem Section */
+        .problem {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .problem h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #1a1a2e;
+        }
+        
+        .problem-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .problem-content h3 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            color: #e74c3c;
+        }
+        
+        .problem-list {
+            list-style: none;
+        }
+        
+        .problem-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .problem-list li:before {
+            content: "⚠️";
+            position: absolute;
+            left: 0;
+        }
+        
+        .cost-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        .cost-box strong {
+            color: #e74c3c;
+            font-size: 1.3em;
+        }
+        
+        /* Solution Section */
+        .solution {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .solution h2 {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+        }
+        
+        .features {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+        
+        .feature h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        /* Flash Sale Card */
+        .pricing-card.flash-sale {
+            border: 3px solid #e74c3c;
+            animation: pulse-border 2s infinite;
+            position: relative;
+            overflow: visible;
+        }
+        
+        @keyframes pulse-border {
+            0% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(231, 76, 60, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0); }
+        }
+        
+        .flash-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+            z-index: 10;
+            animation: flash-pulse 1.5s infinite;
+        }
+        
+        @keyframes flash-pulse {
+            0%, 100% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.5em;
+            margin-bottom: -10px;
+        }
+        
+        .tier-price {
+            font-size: 3em;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 15px 0;
+        }
+        
+        .flash-cta {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            animation: cta-pulse 2s infinite;
+        }
+        
+        @keyframes cta-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.4); }
+            50% { box-shadow: 0 0 20px 5px rgba(231, 76, 60, 0.3); }
+        }
+        
+        /* Pricing Section */
+        .pricing {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+        
+        .pricing h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .pricing-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .pricing-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card.popular {
+            border: 3px solid #00d4ff;
+            transform: scale(1.05);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #00d4ff;
+            color: white;
+            padding: 8px 25px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+        
+        .tier-name {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1a1a2e;
+            margin-bottom: 10px;
+        }
+        
+        .tier-price {
+            font-size: 3em;
+            font-weight: bold;
+            color: #00d4ff;
+            margin: 15px 0;
+        }
+        
+        .tier-price span {
+            font-size: 0.5em;
+            color: #666;
+        }
+        
+        .tier-per-visit {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .tier-features {
+            list-style: none;
+            margin: 25px 0;
+        }
+        
+        .tier-features li {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .tier-features li:before {
+            content: "✓ ";
+            color: #00d4ff;
+            font-weight: bold;
+        }
+        
+        .pricing-cta {
+            display: block;
+            text-align: center;
+            background: #1a1a2e;
+            color: white;
+            padding: 15px;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        
+        .pricing-cta:hover {
+            background: #00d4ff;
+            color: #1a1a2e;
+        }
+        
+        /* How It Works */
+        .process {
+            padding: 80px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .process h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 50px;
+            color: #1a1a2e;
+        }
+        
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+        
+        .step {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #00d4ff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+        
+        .step h3 {
+            margin-bottom: 10px;
+            color: #1a1a2e;
+        }
+        
+        /* Guarantee */
+        .guarantee {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        
+        .guarantee h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .guarantee p {
+            font-size: 1.2em;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        
+        /* CTA Section */
+        .final-cta {
+            background: #1a1a2e;
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .final-cta h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        .final-cta p {
+            font-size: 1.2em;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .contact-info {
+            font-size: 1.5em;
+            margin: 20px 0;
+        }
+        
+        .contact-info a {
+            color: #00d4ff;
+            text-decoration: none;
+        }
+        
+        /* Booking Form */
+        .booking-form-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .booking-form-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .form-subtitle {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .booking-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 0.95em;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .form-group select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: normal;
+            color: white;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            accent-color: #00d4ff;
+        }
+        
+        .form-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        
+        .form-guarantee {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: #0f0f23;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+        }
+        
+        /* Gallery Styles */
+        .gallery {
+            padding: 80px 20px;
+            background: #f8f9fa;
+        }
+        
+        .gallery h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .gallery-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .gallery-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .gallery-item .label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            z-index: 10;
+        }
+        
+        .gallery-item .info {
+            padding: 20px;
+        }
+        
+        .gallery-item .info h3 {
+            font-size: 1.2em;
+            color: #1a1a2e;
+            margin-bottom: 5px;
+        }
+        
+        .gallery-item .info p {
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .gallery-item .results {
+            display: flex;
+            gap: 20px;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .gallery-item .result {
+            text-align: center;
+        }
+        
+        .gallery-item .result-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #00d4ff;
+        }
+        
+        .gallery-item .result-label {
+            font-size: 0.8em;
+            color: #666;
+        }
+        
+        .testimonials {
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .testimonials h2 {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: #1a1a2e;
+        }
+        
+        .testimonials-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+        }
+        
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .testimonial-card {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .testimonial-card::before {
+            content: """;
+            font-size: 4em;
+            color: #00d4ff;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            opacity: 0.3;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+        
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        
+        .author-info h4 {
+            color: #1a1a2e;
+            margin: 0;
+        }
+        
+        .author-info p {
+            color: #666;
+            margin: 0;
+            font-size: 0.9em;
+        }
+        
+        .stars {
+            color: #ffc107;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .problem-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .steps {
+                flex-direction: column;
+            }
+            
+            .pricing-card.popular {
+                transform: none;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-form {
+                padding: 25px;
+            }
+            
+            .testimonials-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Tesla <span>Cool</span> Pro</h1>
+        <p class="subtitle">Premium Radiator & Cooling System Cleaning</p>
+        <p class="tagline">Restore AC Performance • Protect Your Battery • Extend Your Range</p>
+        <a href="#book" class="cta-button">Book Your Service</a>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust-badges">
+        <div class="badge-container">
+            <div class="badge">
+                <div class="badge-number">500+</div>
+                <div class="badge-label">Teslas Serviced</div>
+            </div>
+            <div class="badge">
+                <div class="badge-number">4.9★</div>
+                <div class="badge-label">Average Rating</div>
+            </div>
+            <div class="badge">
+                <div class="badge-number">$2.2M</div>
+                <div class="badge-label">Saved in Repairs</div>
+            </div>
+            <div class="badge">
+                <div class="badge-number">0</div>
+                <div class="badge-label">Damage Incidents</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem">
+        <h2>The Hidden Problem Every Tesla Faces</h2>
+        <div class="problem-grid">
+            <div class="problem-content">
+                <h3>Why Your Tesla is Running Hot</h3>
+                <ul class="problem-list">
+                    <li>No front grille = direct exposure to debris</li>
+                    <li>Bugs, leaves, dirt clog the radiator</li>
+                    <li>AC slowly loses effectiveness</li>
+                    <li>Battery can't cool properly</li>
+                    <li>Range drops over time</li>
+                    <li>Repair cost when it fails: $3,000-5,000+</li>
+                </ul>
+                <div class="cost-box">
+                    <p><strong>Tesla Service Center Charges:</strong><br>
+                    Diagnostic: $200-300<br>
+                    Radiator Replacement: $1,200-1,500<br>
+                    AC Repair: $800-1,200<br>
+                    <strong>Total: $3,000-5,000+</strong></p>
+                </div>
+            </div>
+            <div class="problem-visual">
+                <img src="images/before-1.jpg" alt="Dirty Tesla radiator - before cleaning" style="width: 100%; height: 400px; object-fit: cover; border-radius: 10px;">
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section class="solution">
+        <h2>The Professional Solution</h2>
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔧</div>
+                <h3>Tesla-Trained Technicians</h3>
+                <p>We ONLY work on Teslas. We understand the unique cooling system, software, and sensors.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚐</div>
+                <h3>Mobile Service</h3>
+                <p>We come to you. Home, office, or charging station. Same professional service, zero hassle.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">⚡</div>
+                <h3>Same-Day Service</h3>
+                <p>Book today, get serviced today. No waiting weeks like Tesla Service Center.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🛡️</div>
+                <h3>Warranty Safe</h3>
+                <p>We use Tesla-approved methods. Won't void your warranty. Protects your investment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <h2>Choose Your Protection Level</h2>
+        <p class="pricing-subtitle">From one-time refresh to year-round protection. All plans include Tesla-trained technicians and our satisfaction guarantee.</p>
+        
+        <div class="pricing-grid">
+            <!-- Tier 1: Essential (Flash Sale) -->
+            <div class="pricing-card flash-sale">
+                <div class="flash-badge">⚡ FLASH SALE</div>
+                <div class="tier-name">Essential</div>
+                <div class="original-price">$199</div>
+                <div class="tier-price">$150</div>
+                <div class="tier-per-visit">Per visit • One-time service</div>
+                <ul class="tier-features">
+                    <li>✓ External radiator deep clean</li>
+                    <li>✓ AC condenser restoration</li>
+                    <li>✓ Visual inspection</li>
+                    <li>✓ Photo documentation</li>
+                    <li>✓ 30-day warranty</li>
+                </ul>
+                <a href="#book" class="pricing-cta flash-cta">Claim Flash Sale</a>
+            </div>
+
+            <!-- Tier 2: Standard (Popular) -->
+            <div class="pricing-card popular">
+                <div class="popular-badge">MOST POPULAR</div>
+                <div class="tier-name">Standard</div>
+                <div class="tier-price">$275</div>
+                <div class="tier-per-visit">$137/visit • 2x per year</div>
+                <ul class="tier-features">
+                    <li>Everything in Essential</li>
+                    <li>Internal flush (2nd visit)</li>
+                    <li>AC performance test</li>
+                    <li>Priority scheduling</li>
+                    <li>6-month warranty</li>
+                    <li>Save $25 vs 2 singles</li>
+                </ul>
+                <a href="#book" class="pricing-cta">Select Standard</a>
+            </div>
+
+            <!-- Tier 3: Professional -->
+            <div class="pricing-card">
+                <div class="tier-name">Professional</div>
+                <div class="tier-price">$375</div>
+                <div class="tier-per-visit">$125/visit • 3x per year</div>
+                <ul class="tier-features">
+                    <li>Everything in Standard</li>
+                    <li>Battery cooling check</li>
+                    <li>Cabin filter replacement</li>
+                    <li>Mobile service included</li>
+                    <li>24/7 support</li>
+                    <li>1-year warranty</li>
+                    <li>Save $75 vs 3 singles</li>
+                </ul>
+                <a href="#book" class="pricing-cta">Select Professional</a>
+            </div>
+
+            <!-- Tier 4: VIP -->
+            <div class="pricing-card">
+                <div class="tier-name">VIP</div>
+                <div class="tier-price">$450</div>
+                <div class="tier-per-visit">$112/visit • 4x per year</div>
+                <ul class="tier-features">
+                    <li>Everything in Professional</li>
+                    <li>Quarterly health reports</li>
+                    <li>Dedicated account manager</li>
+                    <li>Emergency same-day service</li>
+                    <li>Full diagnostics</li>
+                    <li>2-year warranty</li>
+                    <li>Save $150 vs 4 singles</li>
+                </ul>
+                <a href="#book" class="pricing-cta">Select VIP</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="process">
+        <h2>How It Works</h2>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Book Online</h3>
+                <p>Choose your plan and schedule. Mobile or in-shop.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Free Inspection</h3>
+                <p>We assess your radiator condition. No obligation.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Professional Clean</h3>
+                <p>Tesla-trained technicians. 45-120 minutes.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <h3>Performance Test</h3>
+                <p>We verify AC and cooling improvements.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">5</div>
+                <h3>Get Report</h3>
+                <p>Before/after photos + maintenance recommendations.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- See the Problem Section -->
+    <section class="gallery">
+        <h2>See the Problem</h2>
+        <p class="gallery-subtitle">These are actual photos of Tesla radiators that needed cleaning. Does yours look like this?</p>
+        
+        <div class="gallery-grid">
+            <!-- Problem Photo 1 -->
+            <div class="gallery-item">
+                <div style="position: relative; height: 250px; overflow: hidden; border-radius: 10px;">
+                    <img src="images/before-1.jpg" alt="Dirty Tesla radiator" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="label" style="position: absolute; top: 10px; left: 10px; background: rgba(231, 76, 60, 0.9); color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold;">NEEDS CLEANING</span>
+                </div>
+                <div class="info">
+                    <h3>Tesla Model 3 - 45,000 miles</h3>
+                    <p>Heavy debris buildup causing weak AC and reduced range</p>
+                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 0.9em;"><strong>Symptoms:</strong> AC weak, 8% range loss, overheating warnings</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Problem Photo 2 -->
+            <div class="gallery-item">
+                <div style="position: relative; height: 250px; overflow: hidden; border-radius: 10px;">
+                    <img src="images/before-2.jpg" alt="Dirty Tesla radiator" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="label" style="position: absolute; top: 10px; left: 10px; background: rgba(231, 76, 60, 0.9); color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold;">NEEDS CLEANING</span>
+                </div>
+                <div class="info">
+                    <h3>Tesla Model Y - 62,000 miles</h3>
+                    <p>Severe clogging after 18 months without maintenance</p>
+                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 0.9em;"><strong>Symptoms:</strong> AC barely working, 11% range loss, battery warnings</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Problem Photo 3 -->
+            <div class="gallery-item">
+                <div style="position: relative; height: 250px; overflow: hidden; border-radius: 10px;">
+                    <img src="images/before-3.jpg" alt="Dirty Tesla radiator" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="label" style="position: absolute; top: 10px; left: 10px; background: rgba(231, 76, 60, 0.9); color: white; padding: 8px 20px; border-radius: 20px; font-weight: bold;">NEEDS CLEANING</span>
+                </div>
+                <div class="info">
+                    <h3>Tesla Model S - 78,000 miles</h3>
+                    <p>Moderate buildup discovered during routine inspection</p>
+                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 0.9em;"><strong>Symptoms:</strong> Slightly warm AC, 6% range reduction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 40px;">
+            <p style="font-size: 1.2em; margin-bottom: 20px;"><strong>If your Tesla's radiator looks like this, you need cleaning.</strong></p>
+            <a href="#pricing" class="cta-button">Book Your Cleaning Now</a>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <h2>What Tesla Owners Say</h2>
+        <p class="testimonials-subtitle">Real reviews from real customers</p>
+        
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">My AC was barely blowing cold air. I thought I needed a $1200 repair at Tesla. These guys cleaned my radiator for $150 and the AC is ice cold now. Best money I've spent on my Tesla.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">JD</div>
+                    <div class="author-info">
+                        <h4>James D.</h4>
+                        <p>Tesla Model 3 Owner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">I was losing about 20 miles of range and couldn't figure out why. After the cleaning, my range is back to normal. They came to my office and did it in 45 minutes. Super convenient.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">SM</div>
+                    <div class="author-info">
+                        <h4>Sarah M.</h4>
+                        <p>Tesla Model Y Owner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">Professional, knowledgeable, and honest. They showed me the before/after photos and the difference was shocking. I signed up for the Standard plan immediately. Worth every penny.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">RL</div>
+                    <div class="author-info">
+                        <h4>Robert L.</h4>
+                        <p>Tesla Model S Owner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 4 -->
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">I manage a fleet of 6 Teslas for our company. These guys come to our office and clean all of them in one day. Our AC issues are gone and the drivers are much happier. Great business service.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AT</div>
+                    <div class="author-info">
+                        <h4>Amanda T.</h4>
+                        <p>Fleet Manager, 6 Teslas</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 5 -->
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">I was skeptical at first but the money-back guarantee convinced me to try it. The difference in my AC was immediate and obvious. I went from sweating in my Tesla to freezing in 45 minutes. Amazing!</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">MK</div>
+                    <div class="author-info">
+                        <h4>Michael K.</h4>
+                        <p>Tesla Model 3 Owner</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 6 -->
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">I've been driving Teslas for 5 years and never knew this was a thing. After the cleaning my car feels brand new. The mobile service is a game changer - they came to my house while I worked from home.</p>
+                <div class="testimonial-author">
+                    <div class="author-avatar">EC</div>
+                    <div class="author-info">
+                        <h4>Emily C.</h4>
+                        <p>Tesla Model Y Owner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee -->
+    <section class="guarantee">
+        <h2>100% Money-Back Guarantee</h2>
+        <p>If you're not completely satisfied with your service, we'll refund every penny. No questions. No hassle. We're only successful if you're thrilled.</p>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="booking-form-section" id="book">
+        <h2>Book Your Service</h2>
+        <p class="form-subtitle">Fill out the form below and we'll confirm your appointment within 15 minutes</p>
+        
+        <form class="booking-form" action="https://formspree.io/f/mzdwnrwk" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="435-695-6996">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="model">Tesla Model *</label>
+                    <select id="model" name="model" required>
+                        <option value="">Select Model</option>
+                        <option value="model-3">Model 3</option>
+                        <option value="model-y">Model Y</option>
+                        <option value="model-s">Model S</option>
+                        <option value="model-x">Model X</option>
+                        <option value="cybertruck">Cybertruck</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year *</label>
+                    <select id="year" name="year" required>
+                        <option value="">Select Year</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mileage">Current Mileage (approximate)</label>
+                <input type="number" id="mileage" name="mileage" placeholder="45,000">
+            </div>
+            
+            <div class="form-group">
+                <label for="service-tier">Service Tier *</label>
+                <select id="service-tier" name="service-tier" required>
+                    <option value="">Select Your Plan</option>
+                    <option value="essential">Essential - $150 (One-time)</option>
+                    <option value="standard">Standard - $275 (2x/year)</option>
+                    <option value="professional">Professional - $375 (3x/year)</option>
+                    <option value="vip">VIP - $450 (4x/year)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="symptoms">Current Symptoms (check all that apply)</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="weak-ac"> Weak AC / Not cooling
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="range-loss"> Range loss / Reduced efficiency
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="overheating"> Overheating warnings
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="battery-warnings"> Battery cooling warnings
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="no-issues"> No issues - preventive maintenance
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Preferred Date *</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Preferred Time *</label>
+                    <select id="time" name="time" required>
+                        <option value="">Select Time</option>
+                        <option value="morning">Morning (8am - 12pm)</option>
+                        <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                        <option value="evening">Evening (5pm - 8pm)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Service Location (Address) *</label>
+                <input type="text" id="location" name="location" required placeholder="123 Main St, Provo, UT 84601">
+                <small>Mobile service - we come to you!</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Additional Notes</label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Any specific concerns or access instructions..."></textarea>
+            </div>
+            
+            <button type="submit" class="form-submit">Book My Appointment</button>
+            <p class="form-guarantee">⚡ We'll confirm within 15 minutes • 100% Money-Back Guarantee</p>
+        </form>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="final-cta" id="contact">
+        <h2>Ready to Protect Your Tesla?</h2>
+        <p>Same-day appointments available. Mobile service at your location.</p>
+        <div class="contact-info">
+            📞 <a href="tel:4356956996">435.695.6996</a>
+        </div>
+        <p style="margin-top: 20px;">Or text "COOL" to <a href="tel:4356956996">435.695.6996</a> for $20 off</p>
+        <br>
+        <a href="tel:4356956996" class="cta-button">Call Now</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p><strong>Tesla Cool Pro</strong> - Premium Tesla Radiator Cleaning Specialists</p>
+        <p style="margin-top: 10px;">Not affiliated with Tesla Inc. | Serving Utah County, Nebo, Salt Lake, and all surrounding counties</p>
+        <p style="margin-top: 10px; font-size: 0.9em;">© 2024 Tesla Cool Pro. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

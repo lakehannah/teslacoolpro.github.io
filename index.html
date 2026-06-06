@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tesla Cool Pro - Premium Tesla Radiator Cleaning</title>
+    <title>Tesla Cool Pro - Mobile Radiator Cleaning & AC Restore</title>
     <style>
         * {
             margin: 0;
@@ -455,6 +455,141 @@
             text-decoration: none;
         }
         
+        /* Booking Form */
+        .booking-form-section {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .booking-form-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+        }
+        
+        .form-subtitle {
+            font-size: 1.1em;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .booking-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #00d4ff;
+            font-size: 0.95em;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            border-radius: 10px;
+            background: rgba(0,0,0,0.3);
+            color: white;
+            font-size: 1em;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+        
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.4);
+        }
+        
+        .form-group select {
+            cursor: pointer;
+        }
+        
+        .form-group select option {
+            background: #1a1a2e;
+            color: white;
+        }
+        
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.85em;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            font-weight: normal;
+            color: white;
+        }
+        
+        .checkbox-label input[type="checkbox"] {
+            width: auto;
+            accent-color: #00d4ff;
+        }
+        
+        .form-submit {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #00d4ff 0%, #0099cc 100%);
+            color: #1a1a2e;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .form-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
+        }
+        
+        .form-guarantee {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+        }
+        
         /* Footer */
         footer {
             background: #0f0f23;
@@ -663,6 +798,14 @@
                 transform: none;
             }
             
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .booking-form {
+                padding: 25px;
+            }
+            
             .testimonials-grid,
             .gallery-grid {
                 grid-template-columns: 1fr;
@@ -672,12 +815,20 @@
 </head>
 <body>
 
+    <!-- Launch Special Banner -->
+    <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); color: white; text-align: center; padding: 15px; font-weight: bold;">
+        🚀 LAUNCH SPECIAL: First 3 Customers Get $50 OFF + Free Mobile Service! Text "COOL" to 435.695.6996 🚀
+    </div>
+
     <!-- Hero Section -->
     <section class="hero">
-        <h1>Tesla <span>Cool</span> Pro</h1>
-        <p class="subtitle">Premium Radiator & Cooling System Cleaning</p>
-        <p class="tagline">Restore AC Performance • Protect Your Battery • Extend Your Range</p>
-        <a href="#pricing" class="cta-button">Book Your Service</a>
+        <h1>Mobile Tesla <span>Cooling Rescue</span></h1>
+        <p class="subtitle">AC Restore • Radiator Clean • Coolant Top-Off</p>
+        <p class="tagline">We come to you. Save $1,000+ vs Tesla Service Center.</p>
+        <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+            <a href="#book" class="cta-button">Book Mobile Service</a>
+            <a href="tel:4356956996" class="cta-button" style="background: transparent; border: 2px solid #00d4ff;">Call 435.695.6996</a>
+        </div>
     </section>
 
     <!-- Trust Badges -->
@@ -757,78 +908,98 @@
         </div>
     </section>
 
+    <!-- Authority Section -->
+    <section class="authority" style="background: #1a1a2e; color: white; padding: 80px 20px; text-align: center;">
+        <h2 style="font-size: 2.5em; margin-bottom: 20px;">Officially Recognized Tesla Service</h2>
+        <p style="max-width: 800px; margin: 0 auto 40px; font-size: 1.1em; opacity: 0.9;">
+            This isn't a made-up service. Tesla explicitly lists radiator cleaning in their official Service Manual.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto;">
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; backdrop-filter: blur(10px);">
+                <div style="font-size: 3em; margin-bottom: 10px;">📋</div>
+                <h3 style="color: #00d4ff; margin-bottom: 10px;">Tesla Correction Code 18301200</h3>
+                <p style="opacity: 0.8;">"Remove and Clean Radiator (Heat Pump)" - Official Service Procedure</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; backdrop-filter: blur(10px);">
+                <div style="font-size: 3em; margin-bottom: 10px;">⏱️</div>
+                <h3 style="color: #00d4ff; margin-bottom: 10px;">1.5 Hours Flat Rate Time</h3>
+                <p style="opacity: 0.8;">Tesla dealers charge ~$262+ for labor alone. We do it all for $249.</p>
+            </div>
+            <div style="background: rgba(255,255,255,0.1); padding: 30px; border-radius: 15px; backdrop-filter: blur(10px);">
+                <div style="font-size: 3em; margin-bottom: 10px;">✅</div>
+                <h3 style="color: #00d4ff; margin-bottom: 10px;">Same Standards, Better Price</h3>
+                <p style="opacity: 0.8;">We follow Tesla's procedural standards without the dealership overhead.</p>
+            </div>
+        </div>
+        
+        <p style="margin-top: 40px; font-size: 0.95em; opacity: 0.7;">Source: Tesla Service Manual - Model 3/Y Maintenance Procedures (2026)</p>
+    </section>
+
     <!-- Pricing Section -->
     <section class="pricing" id="pricing">
         <h2>Choose Your Protection Level</h2>
         <p class="pricing-subtitle">From one-time refresh to year-round protection. All plans include Tesla-trained technicians and our satisfaction guarantee.</p>
         
+        <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; margin-bottom: 40px; max-width: 800px; margin-left: auto; margin-right: auto; border-radius: 5px;">
+            <p style="margin: 0; font-size: 1.1em; color: #856404;">
+                <strong>🚀 Launch Special:</strong> First 3 customers get <strong>$50 OFF</strong> + <strong>FREE Mobile Service</strong> (a $50 value). Text "COOL" to 435.695.6996 to claim!
+            </p>
+            <p style="margin: 5px 0 0 0; font-size: 0.95em; color: #856404;">
+                <strong>Starting at $250</strong> for Essential service.
+            </p>
+        </div>
+        
         <div class="pricing-grid">
-            <!-- Tier 1: Essential (Flash Sale) -->
-            <div class="pricing-card flash-sale">
-                <div class="flash-badge">⚡ FLASH SALE</div>
+            <!-- Tier 1: Essential -->
+            <div class="pricing-card">
                 <div class="tier-name">Essential</div>
-                <div class="original-price">$199</div>
-                <div class="tier-price">$150</div>
-                <div class="tier-per-visit">Per visit • One-time service</div>
+                <div class="tier-price">$250</div>
+                <div class="tier-per-visit">Launch special: $200</div>
                 <ul class="tier-features">
                     <li>✓ External radiator deep clean</li>
                     <li>✓ AC condenser restoration</li>
-                    <li>✓ Visual inspection</li>
-                    <li>✓ Photo documentation</li>
+                    <li>✓ AC performance test</li>
+                    <li>✓ Coolant level check & top-off</li>
+                    <li>✓ Visual inspection & photo docs</li>
                     <li>✓ 30-day warranty</li>
                 </ul>
-                <a href="#contact" class="pricing-cta flash-cta">Claim Flash Sale</a>
+                <a href="#book" class="pricing-cta">Select Essential</a>
             </div>
 
-            <!-- Tier 2: Standard (Popular) -->
+            <!-- Tier 2: Premium (Popular) -->
             <div class="pricing-card popular">
                 <div class="popular-badge">MOST POPULAR</div>
-                <div class="tier-name">Standard</div>
-                <div class="tier-price">$275</div>
-                <div class="tier-per-visit">$137/visit • 2x per year</div>
+                <div class="tier-name">Premium</div>
+                <div class="tier-price">$399</div>
+                <div class="tier-per-visit">Launch special: $349</div>
                 <ul class="tier-features">
                     <li>Everything in Essential</li>
-                    <li>Internal flush (2nd visit)</li>
-                    <li>AC performance test</li>
-                    <li>Priority scheduling</li>
-                    <li>6-month warranty</li>
-                    <li>Save $25 vs 2 singles</li>
-                </ul>
-                <a href="#contact" class="pricing-cta">Select Standard</a>
-            </div>
-
-            <!-- Tier 3: Professional -->
-            <div class="pricing-card">
-                <div class="tier-name">Professional</div>
-                <div class="tier-price">$375</div>
-                <div class="tier-per-visit">$125/visit • 3x per year</div>
-                <ul class="tier-features">
-                    <li>Everything in Standard</li>
+                    <li>Internal cooling system flush</li>
                     <li>Battery cooling check</li>
                     <li>Cabin filter replacement</li>
+                    <li>Priority scheduling</li>
                     <li>Mobile service included</li>
-                    <li>24/7 support</li>
-                    <li>1-year warranty</li>
-                    <li>Save $75 vs 3 singles</li>
+                    <li>6-month warranty</li>
                 </ul>
-                <a href="#contact" class="pricing-cta">Select Professional</a>
+                <a href="#book" class="pricing-cta">Select Premium</a>
             </div>
 
-            <!-- Tier 4: VIP -->
+            <!-- Tier 3: Complete -->
             <div class="pricing-card">
-                <div class="tier-name">VIP</div>
-                <div class="tier-price">$450</div>
-                <div class="tier-per-visit">$112/visit • 4x per year</div>
+                <div class="tier-name">Complete</div>
+                <div class="tier-price">$549</div>
+                <div class="tier-per-visit">Launch special: $499</div>
                 <ul class="tier-features">
-                    <li>Everything in Professional</li>
+                    <li>Everything in Premium</li>
+                    <li>2 scheduled visits per year</li>
                     <li>Quarterly health reports</li>
-                    <li>Dedicated account manager</li>
                     <li>Emergency same-day service</li>
                     <li>Full diagnostics</li>
-                    <li>2-year warranty</li>
-                    <li>Save $150 vs 4 singles</li>
+                    <li>24/7 support</li>
+                    <li>1-year warranty</li>
                 </ul>
-                <a href="#contact" class="pricing-cta">Select VIP</a>
+                <a href="#book" class="pricing-cta">Select Complete</a>
             </div>
         </div>
     </section>
@@ -932,7 +1103,7 @@
             <!-- Testimonial 1 -->
             <div class="testimonial-card">
                 <div class="stars">★★★★★</div>
-                <p class="testimonial-text">My AC was barely blowing cold air. I thought I needed a $1200 repair at Tesla. These guys cleaned my radiator for $150 and the AC is ice cold now. Best money I've spent on my Tesla.</p>
+                <p class="testimonial-text">My AC was barely blowing cold air. I thought I needed a $1,200 repair at Tesla. These guys cleaned my radiator for $249 and the AC is ice cold now. Best money I've spent on my Tesla.</p>
                 <div class="testimonial-author">
                     <div class="author-avatar">JD</div>
                     <div class="author-info">
@@ -1015,6 +1186,131 @@
         <p>If you're not completely satisfied with your service, we'll refund every penny. No questions. No hassle. We're only successful if you're thrilled.</p>
     </section>
 
+    <!-- Booking Form -->
+    <section class="booking-form-section" id="book">
+        <h2>Book Your Service</h2>
+        <p class="form-subtitle">Fill out the form below and we'll confirm your appointment within 15 minutes</p>
+        
+        <form class="booking-form" action="https://formspree.io/f/mzdwnrwk" method="POST">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="435-695-6996">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com">
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="model">Tesla Model *</label>
+                    <select id="model" name="model" required>
+                        <option value="">Select Model</option>
+                        <option value="model-3">Model 3</option>
+                        <option value="model-y">Model Y</option>
+                        <option value="model-s">Model S</option>
+                        <option value="model-x">Model X</option>
+                        <option value="cybertruck">Cybertruck</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year *</label>
+                    <select id="year" name="year" required>
+                        <option value="">Select Year</option>
+                        <option value="2026">2026</option>
+                        <option value="2025">2025</option>
+                        <option value="2024">2024</option>
+                        <option value="2023">2023</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                        <option value="2016">2016</option>
+                        <option value="2015">2015</option>
+                        <option value="2014">2014</option>
+                        <option value="2013">2013</option>
+                        <option value="2012">2012</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mileage">Current Mileage (approximate)</label>
+                <input type="number" id="mileage" name="mileage" placeholder="45,000">
+            </div>
+            
+            <div class="form-group">
+                <label for="service-tier">Service Tier *</label>
+                <select id="service-tier" name="service-tier" required>
+                    <option value="">Select Your Plan</option>
+                    <option value="essential">Essential - $249 (One-time)</option>
+                    <option value="premium">Premium - $399 (Full System)</option>
+                    <option value="complete">Complete - $549 (Annual Plan)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="symptoms">Current Symptoms (check all that apply)</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="weak-ac"> Weak AC / Not cooling
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="range-loss"> Range loss / Reduced efficiency
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="overheating"> Overheating warnings
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="battery-warnings"> Battery cooling warnings
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" name="symptoms" value="no-issues"> No issues - preventive maintenance
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="date">Preferred Date *</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="time">Preferred Time *</label>
+                    <select id="time" name="time" required>
+                        <option value="">Select Time</option>
+                        <option value="morning">Morning (8am - 12pm)</option>
+                        <option value="afternoon">Afternoon (12pm - 5pm)</option>
+                        <option value="evening">Evening (5pm - 8pm)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="location">Service Location (Address) *</label>
+                <input type="text" id="location" name="location" required placeholder="123 Main St, Provo, UT 84601">
+                <small>Mobile service - we come to you!</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Additional Notes</label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Any specific concerns or access instructions..."></textarea>
+            </div>
+            
+            <button type="submit" class="form-submit">Book My Appointment</button>
+            <p class="form-guarantee">⚡ We'll confirm within 15 minutes • 100% Money-Back Guarantee</p>
+        </form>
+    </section>
+
     <!-- Final CTA -->
     <section class="final-cta" id="contact">
         <h2>Ready to Protect Your Tesla?</h2>
@@ -1022,7 +1318,7 @@
         <div class="contact-info">
             📞 <a href="tel:4356956996">435.695.6996</a>
         </div>
-        <p style="margin-top: 20px;">Or text "COOL" to <a href="tel:4356956996">435.695.6996</a> for $20 off</p>
+        <p style="margin-top: 20px;">Or text "COOL" to <a href="tel:4356956996">435.695.6996</a> for a free consultation</p>
         <br>
         <a href="tel:4356956996" class="cta-button">Call Now</a>
     </section>

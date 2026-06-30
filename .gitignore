@@ -1,0 +1,12 @@
+# Keep all markdown files - they're valuable project docs
+
+# Large media files that aren't needed on the site
+*.pdf
+
+# OpenClaw workspace files (not part of this project)
+.openclaw/
+memory/
+subagents/
+
+# System files
+.DS_Store

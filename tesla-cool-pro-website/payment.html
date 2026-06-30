@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Payment - Tesla Cool Pro</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Gotham', 'Proxima Nova', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+      background: #f4f4f4;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      margin: 0;
+    }
+    .payment-container {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      max-width: 900px;
+      width: 100%;
+      overflow: hidden;
+      border-top: 4px solid #E82127;
+    }
+    .header {
+      background: #fff;
+      color: #333;
+      padding: 30px 40px;
+      text-align: center;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .brand-name {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+      color: #E82127;
+      text-transform: uppercase;
+    }
+    .header-tagline {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: #666;
+    }
+    .summer-banner {
+      background: #f4f4f4;
+      color: #333;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .summer-banner span {
+      font-size: 16px;
+      margin-right: 8px;
+    }
+    .packages-section {
+      padding: 40px;
+      background: #fafafa;
+      border-bottom: 1px solid #eee;
+    }
+    .section-title {
+      font-size: 28px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .package-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .package-card {
+      background: #fff;
+      border: 2px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 20px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+    }
+    .package-card:hover {
+      border-color: #E82127;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(232, 33, 39, 0.15);
+    }
+    .package-card.selected {
+      border-color: #E82127;
+      background: #fff5f5;
+      box-shadow: 0 4px 15px rgba(232, 33, 39, 0.2);
+    }
+    .package-card.selected::after {
+      content: '✓';
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #E82127;
+    }
+    .package-name {
+      font-size: 16px;
+      font-weight: 500;
+      color: #333;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-transform: uppercase;
+    }
+    .package-price {
+      font-size: 36px;
+      font-weight: 500;
+      color: #E82127;
+      margin-bottom: 12px;
+    }
+    .package-desc {
+      font-size: 6.5pt;
+      color: #666;
+      font-weight: 600;
+      line-height: 1.4;
+      text-align: left;
+      padding: 8px;
+      background: #f8f9fa;
+      border-radius: 6px;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+    .package-desc ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    .package-desc li {
+      padding: 3px 0;
+      border-bottom: 1px solid #eee;
+    }
+    .package-desc li:last-child {
+      border-bottom: none;
+    }
+    .package-desc li::before {
+      content: '✓ ';
+      color: #28a745;
+      font-weight: 900;
+    }
+    .most-popular {
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #E82127;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .service-details {
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 2px solid #E82127;
+    }
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 15px;
+    }
+    .total-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      letter-spacing: 0.5px;
+    }
+    .total-amount {
+      font-size: 32px;
+      font-weight: 500;
+      color: #E82127;
+    }
+    .payment-form {
+      padding: 30px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 11pt;
+      font-weight: 600;
+      transition: border-color 0.3s;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: #E82127;
+    }
+    #card-element {
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      background: #fff;
+      font-size: 11pt;
+      margin-bottom: 10px;
+    }
+    #card-element:focus-within {
+      border-color: #E82127;
+    }
+    #card-errors {
+      color: #E82127;
+      font-size: 8pt;
+      font-weight: 600;
+      margin-top: 5px;
+      display: none;
+    }
+    .pay-button {
+      width: 100%;
+      background: #E82127;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      margin-top: 10px;
+    }
+    .pay-button:hover {
+      background: #c41c21;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(232, 33, 39, 0.3);
+    }
+    .pay-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    .secure-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 20px;
+      padding: 12px;
+      background: #f0f8ff;
+      border-radius: 8px;
+    }
+    .secure-icon {
+      font-size: 16pt;
+    }
+    .secure-text {
+      font-size: 8pt;
+      font-weight: 600;
+      color: #666;
+      text-align: center;
+    }
+    .contact-info {
+      text-align: center;
+      padding: 20px 30px;
+      background: #f8f9fa;
+      border-top: 1px solid #eee;
+    }
+    .contact-text {
+      font-size: 9pt;
+      color: #666;
+      margin-bottom: 8px;
+    }
+    .contact-phone {
+      font-size: 13pt;
+      font-weight: 800;
+      color: #E82127;
+      text-decoration: none;
+    }
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 40px 30px;
+    }
+    .success-icon {
+      font-size: 60pt;
+      margin-bottom: 20px;
+    }
+    .success-title {
+      font-size: 20pt;
+      font-weight: 900;
+      color: #155724;
+      margin-bottom: 10px;
+    }
+    .success-text {
+      font-size: 11pt;
+      color: #666;
+      line-height: 1.6;
+    }
+    .order-summary {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      border: 1px solid #e0e0e0;
+    }
+    .order-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9pt;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    .order-row:last-child {
+      margin-bottom: 0;
+      padding-top: 8px;
+      border-top: 2px solid #E82127;
+      font-size: 11pt;
+      color: #E82127;
+    }
+    @media (max-width: 600px) {
+      .brand-name {
+        font-size: 20pt;
+      }
+      .package-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="payment-container">
+    <div class="header">
+      <div class="brand-name">Tesla Cool Pro</div>
+      <div class="header-tagline">Mobile Radiator Cleaning & AC Restore</div>
+    </div>
+
+    <div class="summer-banner">
+      <span>☀️</span> Summer Service Special: Free Mobile Service Included! Text "COOL" to 385.325.1912 <span>☀️</span>
+    </div>
+
+    <div class="packages-section">
+      <div class="section-title">Flash Sale: Choose Your Deal</div>
+      <p style="text-align: center; font-size: 9pt; color: #E82127; font-weight: 700; margin-bottom: 15px;">🔥 Limited Time Summer Sale - Regular Price $450 🔥</p>
+      
+      <div class="package-grid">
+        <div class="package-card selected" data-package="standard" data-price="250">
+          <div class="most-popular">Flash Sale</div>
+          <div class="package-name">Standard Clean</div>
+          <div class="package-price">$250</div>
+          <div class="package-desc">
+            <ul>
+              <li>External radiator deep clean</li>
+              <li>AC condenser restoration</li>
+              <li>AC performance test</li>
+              <li>Visual inspection & photos</li>
+              <li><strong>1.5 hours professional labor</strong></li>
+              <li><strong>Does NOT void warranty</strong></li>
+              <li>Professional mobile service</li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="package-card" data-package="bogo" data-price="450" style="border-color: #ff6b35; background: linear-gradient(135deg, #fff 0%, #fff5f0 100%);">
+          <div class="most-popular" style="background: #ff6b35;">BOGO Special</div>
+          <div class="package-name">Buy One, Get One</div>
+          <div class="package-price">$450</div>
+          <div class="package-desc">
+            <ul>
+              <li>Everything in Standard Clean</li>
+              <li><strong>Two complete services</strong></li>
+              <li><strong>1.5 hours labor each visit</strong></li>
+              <li>Perfect for 2 Teslas or 2 visits</li>
+              <li>Share with a friend or save for later</li>
+              <li>Flexible scheduling</li>
+              <li><strong>Does NOT void warranty</strong></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="package-card" style="background: #f8f9fa; border-style: dashed;">
+          <div class="package-name" style="color: #999;">Coming Soon</div>
+          <div class="package-price" style="font-size: 16pt; color: #999;">-</div>
+          <div class="package-desc" style="text-align: center; color: #999;">
+            Premium packages coming soon
+          </div>
+        </div>
+      </div>
+      
+      <div class="service-details">
+        <div class="total-row">
+          <span class="total-label">Selected Package</span>
+          <span class="total-amount" id="selected-package-name">Premium</span>
+        </div>
+        <div class="total-row">
+          <span class="total-label">Total Due Today</span>
+          <span class="total-amount" id="total-amount">$399.00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="payment-form" id="payment-form-section">
+      <!-- Formspree Form -->
+      <form id="payment-form" action="https://formspree.io/f/mzdwnrwk" method="POST">
+        
+        <!-- Hidden fields for Formspree -->
+        <input type="hidden" name="package" id="formspree-package" value="Premium">
+        <input type="hidden" name="amount" id="formspree-amount" value="$399.00">
+        <input type="hidden" name="stripe_payment_method" id="stripe-payment-method" value="">
+        
+        <div class="order-summary">
+          <div class="order-row">
+            <span>Package:</span>
+            <span id="summary-package">Premium</span>
+          </div>
+          <div class="order-row">
+            <span>Service Date:</span>
+            <span id="summary-date">-</span>
+          </div>
+          <div class="order-row">
+            <span>Total:</span>
+            <span id="summary-total">$399.00</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-input" name="name" id="name" required placeholder="John Doe">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-input" name="email" id="email" required placeholder="john@example.com">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Phone Number</label>
+          <input type="tel" class="form-input" name="phone" id="phone" required placeholder="(385) 325-1912">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Vehicle Model</label>
+          <select class="form-input" name="vehicle" id="vehicle" required>
+            <option value="">Select your Tesla model</option>
+            <option value="Model 3">Tesla Model 3</option>
+            <option value="Model Y">Tesla Model Y</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Preferred Date</label>
+          <input type="date" class="form-input" name="service_date" id="date" required>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Service Location</label>
+          <select class="form-input" name="location_type" id="location" required>
+            <option value="">Select location type</option>
+            <option value="Home">Home</option>
+            <option value="Office">Office</option>
+            <option value="Supercharger Station">Supercharger Station</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Address/Location Details</label>
+          <input type="text" class="form-input" name="address" id="address" required placeholder="123 Main St, Salt Lake City, UT">
+        </div>
+        
+        <div class="form-group">
+          <label class="form-label">Card Information</label>
+          <div id="card-element"></div>
+          <div id="card-errors"></div>
+        </div>
+        
+        <button type="submit" class="pay-button" id="pay-button">Pay $399.00</button>
+      </form>
+      
+      <div class="secure-badge">
+        <span class="secure-icon">🔒</span>
+        <span class="secure-text">Secure payment powered by Stripe. Your card information is encrypted and never stored on our servers.</span>
+      </div>
+    </div>
+
+    <div class="success-message" id="success-message">
+      <div class="success-icon">✅</div>
+      <div class="success-title">Payment & Booking Submitted!</div>
+      <div class="success-text">
+        Thank you! We've received your booking request and payment information. We'll contact you within 15 minutes to confirm your appointment time.
+        <br><br>
+        A confirmation email has been sent to <strong id="confirmation-email"></strong>.
+      </div>
+    </div>
+
+    <div class="contact-info">
+      <div class="contact-text">Questions? Call or text us:</div>
+      <a href="tel:3853251912" class="contact-phone">(385) 325-1912</a>
+    </div>
+  </div>
+
+  <script>
+    // ============================================
+    // REPLACE WITH YOUR STRIPE PUBLISHABLE KEY
+    // Get it from: https://dashboard.stripe.com/apikeys
+    // ============================================
+    const stripe = Stripe('pk_live_51TlbEoB9oA41iZADIsLlz66dsRS2vl5bwtaVQgODPkxcVWKZndT5PGUY40UtOHWnlJl3si76YL03Q0SWSw1NpmLx00iTVUb4Jb');
+    const elements = stripe.elements();
+    
+    // Create card element
+    const cardElement = elements.create('card', {
+      style: {
+        base: {
+          fontSize: '16px',
+          color: '#32325d',
+          fontFamily: '"Arial Black", "Helvetica Neue", Arial, sans-serif',
+          '::placeholder': {
+            color: '#aab7c4'
+          }
+        },
+        invalid: {
+          color: '#E82127',
+          iconColor: '#E82127'
+        }
+      }
+    });
+    
+    cardElement.mount('#card-element');
+    
+    // Handle card validation errors
+    cardElement.on('change', function(event) {
+      const errorDiv = document.getElementById('card-errors');
+      if (event.error) {
+        errorDiv.textContent = event.error.message;
+        errorDiv.style.display = 'block';
+      } else {
+        errorDiv.style.display = 'none';
+      }
+    });
+    
+    // Package selection
+    const packageCards = document.querySelectorAll('.package-card');
+    const totalAmountEl = document.getElementById('total-amount');
+    const selectedPackageNameEl = document.getElementById('selected-package-name');
+    const payButton = document.getElementById('pay-button');
+    const summaryPackage = document.getElementById('summary-package');
+    const summaryTotal = document.getElementById('summary-total');
+    const formspreePackage = document.getElementById('formspree-package');
+    const formspreeAmount = document.getElementById('formspree-amount');
+    
+    const packageNames = {
+      'standard': 'Standard Clean',
+      'bogo': 'Buy One, Get One'
+    };
+    
+    let selectedPackage = 'standard';
+    let selectedPrice = 250;
+    
+    packageCards.forEach(card => {
+      card.addEventListener('click', () => {
+        packageCards.forEach(c => c.classList.remove('selected'));
+        card.classList.add('selected');
+        
+        selectedPackage = card.dataset.package;
+        selectedPrice = parseInt(card.dataset.price);
+        
+        totalAmountEl.textContent = `$${selectedPrice}.00`;
+        selectedPackageNameEl.textContent = packageNames[selectedPackage];
+        payButton.textContent = `Pay $${selectedPrice}.00`;
+        summaryPackage.textContent = packageNames[selectedPackage];
+        summaryTotal.textContent = `$${selectedPrice}.00`;
+        formspreePackage.value = packageNames[selectedPackage];
+        formspreeAmount.value = `$${selectedPrice}.00`;
+      });
+    });
+    
+    // Update summary date when changed
+    document.getElementById('date').addEventListener('change', function() {
+      const dateValue = this.value ? new Date(this.value).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '-';
+      document.getElementById('summary-date').textContent = dateValue;
+    });
+    
+    // Set minimum date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('date').setAttribute('min', today);
+    
+    // Handle form submission
+    const form = document.getElementById('payment-form');
+    const errorMessage = document.getElementById('card-errors');
+    const paymentFormSection = document.getElementById('payment-form-section');
+    const successMessage = document.getElementById('success-message');
+    const confirmationEmail = document.getElementById('confirmation-email');
+    
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      
+      // Disable button during processing
+      payButton.disabled = true;
+      payButton.textContent = 'Processing...';
+      errorMessage.style.display = 'none';
+      
+      try {
+        // Create payment method with Stripe
+        const {paymentMethod, error} = await stripe.createPaymentMethod({
+          type: 'card',
+          card: cardElement,
+          billing_details: {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            address: {
+              line1: document.getElementById('address').value
+            }
+          }
+        });
+        
+        if (error) {
+          throw error;
+        }
+        
+        // Payment method created successfully - store the ID
+        document.getElementById('stripe-payment-method').value = paymentMethod.id;
+        
+        console.log('Payment method created:', paymentMethod.id);
+        
+        // Submit form to Formspree
+        const formData = new FormData(form);
+        
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'Accept': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          // Success! Show confirmation
+          confirmationEmail.textContent = document.getElementById('email').value;
+          paymentFormSection.style.display = 'none';
+          successMessage.style.display = 'block';
+          
+          // Optional: redirect after 10 seconds
+          // setTimeout(() => {
+          //   window.location.href = '/';
+          // }, 10000);
+        } else {
+          throw new Error('Form submission failed. Please try again.');
+        }
+        
+      } catch (error) {
+        errorMessage.textContent = error.message || 'Payment failed. Please try again.';
+        errorMessage.style.display = 'block';
+        payButton.disabled = false;
+        payButton.textContent = `Pay $${selectedPrice}.00`;
+      }
+    });
+  </script>
+</body>
+</html>

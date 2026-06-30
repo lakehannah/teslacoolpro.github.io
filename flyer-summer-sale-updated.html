@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tesla Cool Pro - Summer Sale Flyer</title>
+  <style>
+    @page {
+      size: 8.5in 11in;
+      margin: 0;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Arial Black', 'Helvetica Neue', Arial, sans-serif;
+      background: #fff;
+      color: #000;
+      line-height: 1.4;
+    }
+    .page {
+      width: 8.5in;
+      height: 11in;
+      padding: 0;
+      background: #ffffff;
+      position: relative;
+      page-break-after: always;
+    }
+    .flyer-container {
+      display: flex;
+      flex-direction: column;
+      height: 11in;
+    }
+    .flyer {
+      flex: 1;
+      padding: 0.2in 0.25in;
+      background: #ffffff;
+      color: #000;
+      position: relative;
+      border-bottom: 1px dashed #ccc;
+    }
+    .flyer:last-child {
+      border-bottom: none;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 0.1in;
+    }
+    .attention-banner {
+      background: #E82127;
+      color: #fff;
+      padding: 0.04in 0.12in;
+      border-radius: 0;
+      display: inline-block;
+      margin-bottom: 0.04in;
+    }
+    .attention-text {
+      font-size: 10pt;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+    }
+    .manual-update {
+      font-size: 8.5pt;
+      color: #333;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+    }
+    .brand-name {
+      font-size: 22pt;
+      font-weight: 900;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      margin-top: 0.03in;
+    }
+    .tagline {
+      font-size: 8.5pt;
+      color: #E82127;
+      margin-top: 0.02in;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+    .main-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.15in;
+      align-items: start;
+    }
+    .left-col {
+      border-right: 3px solid #000;
+      padding-right: 0.12in;
+      display: flex;
+      flex-direction: column;
+      gap: 0.08in;
+    }
+    .hook {
+      font-size: 14pt;
+      font-weight: 900;
+      color: #E82127;
+      text-transform: uppercase;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .warning-signs {
+      background: #fff5f5;
+      border: 2px solid #E82127;
+      border-radius: 0;
+      padding: 0.06in;
+    }
+    .warning-title {
+      font-size: 8.5pt;
+      font-weight: 800;
+      color: #E82127;
+      text-transform: uppercase;
+      margin-bottom: 0.04in;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .warning-list {
+      list-style: none;
+      font-size: 7.5pt;
+      font-weight: 600;
+    }
+    .warning-list li {
+      padding: 0.02in 0;
+      border-bottom: 1px solid #ffd0d0;
+    }
+    .warning-list li:last-child {
+      border-bottom: none;
+    }
+    .warning-list li::before {
+      content: '⚠ ';
+      color: #E82127;
+    }
+    .summer-sale {
+      background: #E82127;
+      border-radius: 0;
+      padding: 0.08in;
+      text-align: center;
+    }
+    .sale-badge {
+      font-size: 8pt;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #fff;
+      margin-bottom: 0.04in;
+      font-weight: 700;
+    }
+    .price-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.06in;
+      margin: 0.04in 0;
+    }
+    .regular-price-large {
+      font-size: 28pt;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: line-through;
+      line-height: 1;
+    }
+    .price-slash {
+      font-size: 36pt;
+      font-weight: 900;
+      color: #fff;
+      line-height: 0.8;
+    }
+    .sale-price {
+      font-size: 36pt;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1;
+    }
+    .limited-tag {
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      font-weight: 700;
+      margin-top: 0.04in;
+      background: #000;
+      display: inline-block;
+      padding: 0.02in 0.06in;
+    }
+    .book-today {
+      font-size: 9pt;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      margin-top: 0.04in;
+      letter-spacing: 2px;
+    }
+    .right-col {
+      padding-left: 0.1in;
+      display: flex;
+      flex-direction: column;
+      gap: 0.06in;
+      margin-top: 0.15in;
+    }
+    .benefits {
+      list-style: none;
+    }
+    .benefits li {
+      font-size: 7.5pt;
+      font-weight: 600;
+      padding: 0.025in 0;
+      display: flex;
+      align-items: center;
+    }
+    .benefits li::before {
+      content: '✓';
+      color: #E82127;
+      font-weight: 900;
+      font-size: 10pt;
+      margin-right: 0.06in;
+    }
+    .qr-section {
+      display: flex;
+      align-items: center;
+      gap: 0.06in;
+      background: #f5f5f5;
+      border-radius: 0;
+      padding: 0.05in;
+      border: 1px solid #ddd;
+    }
+    .qr-code {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border-radius: 0;
+      padding: 2px;
+      flex-shrink: 0;
+      border: 1px solid #000;
+    }
+    .qr-code img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .qr-text {
+      font-size: 6.5pt;
+      color: #000;
+      line-height: 1.2;
+      font-weight: 600;
+    }
+    .qr-text strong {
+      color: #000;
+      display: block;
+      margin-bottom: 0.02in;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .tech-info {
+      background: #f0f0f0;
+      border: 1px solid #000;
+      border-radius: 0;
+      padding: 0.05in;
+      font-size: 6.5pt;
+      color: #000;
+      font-weight: 600;
+    }
+    .tech-info p {
+      margin-bottom: 0.03in;
+    }
+    .tech-info p:last-child {
+      margin-bottom: 0;
+    }
+    .footer {
+      position: absolute;
+      bottom: 0.15in;
+      left: 0.25in;
+      right: 0.25in;
+      text-align: center;
+      border-top: 3px solid #E82127;
+      padding-top: 0.06in;
+    }
+    .cta-phone {
+      font-size: 18pt;
+      font-weight: 900;
+      color: #000;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .cta-label {
+      font-size: 8pt;
+      color: #666;
+      margin-top: 0.02in;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .website {
+      font-size: 7.5pt;
+      color: #E82127;
+      margin-top: 0.03in;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .service-area {
+      font-size: 6.5pt;
+      color: #999;
+      margin-top: 0.02in;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .cut-hint {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #999;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transform: translateY(-50%);
+    }
+    @media print {
+      body {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .page {
+        page-break-after: always;
+      }
+    }
+    @media screen {
+      .page {
+        border: 1px solid #ddd;
+        margin: 0.5in auto;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Page 1: Two half-sheet flyers on one page -->
+  <div class="page">
+    <div class="flyer-container">
+      <!-- Top Flyer -->
+      <div class="flyer">
+        <div class="header">
+          <div class="attention-banner">
+            <span class="attention-text">ATTENTION</span>
+          </div>
+          <div class="manual-update">Tesla Manual Update (April 2026)</div>
+          <div class="brand-name">Tesla Cool Pro</div>
+          <div class="tagline">Mobile Radiator Cleaning • Model 3 & Y</div>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-col">
+            <div class="hook">AC NOT COLD? FANS LOUD?</div>
+            
+            <div class="warning-signs">
+              <div class="warning-title">Warning Signs</div>
+              <ul class="warning-list">
+                <li>Weak airflow from vents</li>
+                <li>Screaming fans under frunk</li>
+                <li>Range dropping unexpectedly</li>
+                <li>HVAC struggling to cool</li>
+              </ul>
+            </div>
+            
+            <div class="summer-sale">
+              <div class="sale-badge">Summer Sale</div>
+              <div class="price-container">
+                <span class="regular-price-large">$450</span>
+                <span class="price-slash">/</span>
+                <span class="sale-price">$250</span>
+              </div>
+              <div class="limited-tag">Limited Time Only</div>
+              <div class="book-today">Book Today!</div>
+            </div>
+          </div>
+          
+          <div class="right-col">
+            <ul class="benefits">
+              <li>We come to YOU (Mobile service)</li>
+              <li>Same-day available</li>
+              <li>Tesla-certified procedure</li>
+              <li>Professional results at half the cost</li>
+              <li><strong>Protects battery health & longevity</strong></li>
+              <li><strong>Prevents overheating damage</strong></li>
+              <li>Restores optimal cooling efficiency</li>
+              <li>Extends HVAC system lifespan</li>
+            </ul>
+            
+            <div class="qr-section">
+              <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://teslacoolpro.com&color=000000&bgcolor=ffffff" alt="Scan to book online">
+              </div>
+              <div class="qr-text">
+                <strong>Scan to Book Online</strong>
+                teslacoolpro.com
+              </div>
+            </div>
+            
+            <div class="tech-info">
+              <p><strong>Correction Codes:</strong> 18301100 / 18301200</p>
+              <p><strong>Maintenance:</strong> Tesla recommends cleaning every 20k miles</p>
+              <p><strong>Battery Protection:</strong> Proper cooling prevents thermal degradation</p>
+              <p style="background:#fff3cd;border:1px solid #856404;padding:0.04in;font-size:5.5pt;color:#856404;font-weight:700;margin-top:0.04in;text-align:center;text-transform:uppercase;letter-spacing:0.5px;">⚠ Front Bumper Removal Required - Professional Access</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer">
+          <div class="cta-phone">(385) 325-1912</div>
+          <div class="cta-label">Call or Text to Book</div>
+          <div class="website">teslacoolpro.com</div>
+          <div class="service-area">Utah County + Salt Lake County</div>
+        </div>
+      </div>
+      
+      <div class="cut-hint">✂ Cut Here ✂</div>
+      
+      <!-- Bottom Flyer -->
+      <div class="flyer">
+        <div class="header">
+          <div class="attention-banner">
+            <span class="attention-text">ATTENTION</span>
+          </div>
+          <div class="manual-update">Tesla Manual Update (April 2026)</div>
+          <div class="brand-name">Tesla Cool Pro</div>
+          <div class="tagline">Mobile Radiator Cleaning • Model 3 & Y</div>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-col">
+            <div class="hook">AC NOT COLD? FANS LOUD?</div>
+            
+            <div class="warning-signs">
+              <div class="warning-title">Warning Signs</div>
+              <ul class="warning-list">
+                <li>Weak airflow from vents</li>
+                <li>Screaming fans under frunk</li>
+                <li>Range dropping unexpectedly</li>
+                <li>HVAC struggling to cool</li>
+              </ul>
+            </div>
+            
+            <div class="summer-sale">
+              <div class="sale-badge">Summer Sale</div>
+              <div class="price-container">
+                <span class="regular-price-large">$450</span>
+                <span class="price-slash">/</span>
+                <span class="sale-price">$250</span>
+              </div>
+              <div class="limited-tag">Limited Time Only</div>
+              <div class="book-today">Book Today!</div>
+            </div>
+          </div>
+          
+          <div class="right-col">
+            <ul class="benefits">
+              <li>We come to YOU (Mobile service)</li>
+              <li>Same-day available</li>
+              <li>Tesla-certified procedure</li>
+              <li>Professional results at half the cost</li>
+              <li><strong>Protects battery health & longevity</strong></li>
+              <li><strong>Prevents overheating damage</strong></li>
+              <li>Restores optimal cooling efficiency</li>
+              <li>Extends HVAC system lifespan</li>
+            </ul>
+            
+            <div class="qr-section">
+              <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://teslacoolpro.com&color=000000&bgcolor=ffffff" alt="Scan to book online">
+              </div>
+              <div class="qr-text">
+                <strong>Scan to Book Online</strong>
+                teslacoolpro.com
+              </div>
+            </div>
+            
+            <div class="tech-info">
+              <p><strong>Correction Codes:</strong> 18301100 / 18301200</p>
+              <p><strong>Maintenance:</strong> Tesla recommends cleaning every 20k miles</p>
+              <p><strong>Battery Protection:</strong> Proper cooling prevents thermal degradation</p>
+              <p style="background:#fff3cd;border:1px solid #856404;padding:0.04in;font-size:5.5pt;color:#856404;font-weight:700;margin-top:0.04in;text-align:center;text-transform:uppercase;letter-spacing:0.5px;">⚠ Front Bumper Removal Required - Professional Access</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer">
+          <div class="cta-phone">(385) 325-1912</div>
+          <div class="cta-label">Call or Text to Book</div>
+          <div class="website">teslacoolpro.com</div>
+          <div class="service-area">Utah County + Salt Lake County</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Page 2: Duplicate sheet for more prints -->
+  <div class="page">
+    <div class="flyer-container">
+      <!-- Top Flyer -->
+      <div class="flyer">
+        <div class="header">
+          <div class="attention-banner">
+            <span class="attention-text">ATTENTION</span>
+          </div>
+          <div class="manual-update">Tesla Manual Update (April 2026)</div>
+          <div class="brand-name">Tesla Cool Pro</div>
+          <div class="tagline">Mobile Radiator Cleaning • Model 3 & Y</div>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-col">
+            <div class="hook">AC NOT COLD? FANS LOUD?</div>
+            
+            <div class="warning-signs">
+              <div class="warning-title">Warning Signs</div>
+              <ul class="warning-list">
+                <li>Weak airflow from vents</li>
+                <li>Screaming fans under frunk</li>
+                <li>Range dropping unexpectedly</li>
+                <li>HVAC struggling to cool</li>
+              </ul>
+            </div>
+            
+            <div class="summer-sale">
+              <div class="sale-badge">Summer Sale</div>
+              <div class="price-container">
+                <span class="regular-price-large">$450</span>
+                <span class="price-slash">/</span>
+                <span class="sale-price">$250</span>
+              </div>
+              <div class="limited-tag">Limited Time Only</div>
+              <div class="book-today">Book Today!</div>
+            </div>
+          </div>
+          
+          <div class="right-col">
+            <ul class="benefits">
+              <li>We come to YOU (Mobile service)</li>
+              <li>Same-day available</li>
+              <li>Tesla-certified procedure</li>
+              <li>Professional results at half the cost</li>
+              <li><strong>Protects battery health & longevity</strong></li>
+              <li><strong>Prevents overheating damage</strong></li>
+              <li>Restores optimal cooling efficiency</li>
+              <li>Extends HVAC system lifespan</li>
+            </ul>
+            
+            <div class="qr-section">
+              <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://teslacoolpro.com&color=000000&bgcolor=ffffff" alt="Scan to book online">
+              </div>
+              <div class="qr-text">
+                <strong>Scan to Book Online</strong>
+                teslacoolpro.com
+              </div>
+            </div>
+            
+            <div class="tech-info">
+              <p><strong>Correction Codes:</strong> 18301100 / 18301200</p>
+              <p><strong>Maintenance:</strong> Tesla recommends cleaning every 20k miles</p>
+              <p><strong>Battery Protection:</strong> Proper cooling prevents thermal degradation</p>
+              <p style="background:#fff3cd;border:1px solid #856404;padding:0.04in;font-size:5.5pt;color:#856404;font-weight:700;margin-top:0.04in;text-align:center;text-transform:uppercase;letter-spacing:0.5px;">⚠ Front Bumper Removal Required - Professional Access</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer">
+          <div class="cta-phone">(385) 325-1912</div>
+          <div class="cta-label">Call or Text to Book</div>
+          <div class="website">teslacoolpro.com</div>
+          <div class="service-area">Utah County + Salt Lake County</div>
+        </div>
+      </div>
+      
+      <div class="cut-hint">✂ Cut Here ✂</div>
+      
+      <!-- Bottom Flyer -->
+      <div class="flyer">
+        <div class="header">
+          <div class="attention-banner">
+            <span class="attention-text">ATTENTION</span>
+          </div>
+          <div class="manual-update">Tesla Manual Update (April 2026)</div>
+          <div class="brand-name">Tesla Cool Pro</div>
+          <div class="tagline">Mobile Radiator Cleaning • Model 3 & Y</div>
+        </div>
+        
+        <div class="main-content">
+          <div class="left-col">
+            <div class="hook">AC NOT COLD? FANS LOUD?</div>
+            
+            <div class="warning-signs">
+              <div class="warning-title">Warning Signs</div>
+              <ul class="warning-list">
+                <li>Weak airflow from vents</li>
+                <li>Screaming fans under frunk</li>
+                <li>Range dropping unexpectedly</li>
+                <li>HVAC struggling to cool</li>
+              </ul>
+            </div>
+            
+            <div class="summer-sale">
+              <div class="sale-badge">Summer Sale</div>
+              <div class="price-container">
+                <span class="regular-price-large">$450</span>
+                <span class="price-slash">/</span>
+                <span class="sale-price">$250</span>
+              </div>
+              <div class="limited-tag">Limited Time Only</div>
+              <div class="book-today">Book Today!</div>
+            </div>
+          </div>
+          
+          <div class="right-col">
+            <ul class="benefits">
+              <li>We come to YOU (Mobile service)</li>
+              <li>Same-day available</li>
+              <li>Tesla-certified procedure</li>
+              <li>Professional results at half the cost</li>
+              <li><strong>Protects battery health & longevity</strong></li>
+              <li><strong>Prevents overheating damage</strong></li>
+              <li>Restores optimal cooling efficiency</li>
+              <li>Extends HVAC system lifespan</li>
+            </ul>
+            
+            <div class="qr-section">
+              <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://teslacoolpro.com&color=000000&bgcolor=ffffff" alt="Scan to book online">
+              </div>
+              <div class="qr-text">
+                <strong>Scan to Book Online</strong>
+                teslacoolpro.com
+              </div>
+            </div>
+            
+            <div class="tech-info">
+              <p><strong>Correction Codes:</strong> 18301100 / 18301200</p>
+              <p><strong>Maintenance:</strong> Tesla recommends cleaning every 20k miles</p>
+              <p><strong>Battery Protection:</strong> Proper cooling prevents thermal degradation</p>
+              <p style="background:#fff3cd;border:1px solid #856404;padding:0.04in;font-size:5.5pt;color:#856404;font-weight:700;margin-top:0.04in;text-align:center;text-transform:uppercase;letter-spacing:0.5px;">⚠ Front Bumper Removal Required - Professional Access</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="footer">
+          <div class="cta-phone">(385) 325-1912</div>
+          <div class="cta-label">Call or Text to Book</div>
+          <div class="website">teslacoolpro.com</div>
+          <div class="service-area">Utah County + Salt Lake County</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

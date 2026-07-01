@@ -88,11 +88,12 @@
       background: #fff;
       border: 2px solid #e0e0e0;
       border-radius: 12px;
-      padding: 20px 12px;
+      padding: 25px 12px 20px 12px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
       position: relative;
+      overflow: visible;
     }
     .package-card:hover {
       border-color: #E82127;
@@ -161,9 +162,9 @@
     }
     .most-popular {
       position: absolute;
-      top: 0px;
+      top: -12px;
       left: 50%;
-      transform: translateX(-50%) translateY(-50%);
+      transform: translateX(-50%);
       background: #E82127;
       color: #fff;
       padding: 6px 14px;
@@ -173,6 +174,7 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       z-index: 10;
+      white-space: nowrap;
     }
     .service-details {
       margin-top: 20px;
@@ -387,7 +389,7 @@
           </div>
         </div>
         
-        <div class="package-card" data-package="bogo" data-price="450" style="border-color: #ff6b35; background: linear-gradient(135deg, #fff 0%, #fff5f0 100%); padding-top: 35px;">
+        <div class="package-card" data-package="bogo" data-price="450" style="border-color: #ff6b35; background: linear-gradient(135deg, #fff 0%, #fff5f0 100%);">
           <div class="most-popular" style="background: #ff6b35;">BOGO Special</div>
           <div class="package-name">Buy One, Get One</div>
           <div class="package-price">$450</div>
